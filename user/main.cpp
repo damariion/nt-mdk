@@ -33,9 +33,11 @@ int main()
 	_STR_CTL_ADD_ANS* ans = new _STR_CTL_ADD_ANS;
 
 	DWORD lpBytesReturned;
-	if (!DeviceIoControl(driver, CTL_ADD, ops, sizeof(_STR_CTL_ADD_OPS), 
+	if (!DeviceIoControl(driver, CTL_ADD, ops, sizeof(_STR_CTL_ADD_OPS),
 		ans, sizeof(_STR_CTL_ADD_ANS), &lpBytesReturned, nullptr))
+	{
 		std::cout << "[-] couldn't control device\n";
+	}
 	else
 		std::cout << "[!] " << ops->a << " + " << ops->b << " = " << ans->ans << '\n';
 	

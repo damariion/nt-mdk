@@ -1,5 +1,5 @@
-#include "driver.h"
-#include "link.h"
+#include "../include/driver.h"
+#include "../include/link.h"
 
 // initial declaration
 UNICODE_STRING driver::device::name = RTL_CONSTANT_STRING(L"");
@@ -16,7 +16,6 @@ NTSTATUS driver::device::create(DEVICE_OBJECT* _device, IRP* _irp)
 	_irp->IoStatus.Status = STATUS_SUCCESS;
 	IoCompleteRequest(_irp, 0);
 	
-	KdPrint(("[+] created driver device\n"));
 	return _irp->IoStatus.Status;
 }
 
@@ -29,7 +28,6 @@ NTSTATUS driver::device::close(DEVICE_OBJECT* _device, IRP* _irp)
 	_irp->IoStatus.Status = STATUS_SUCCESS;
 	IoCompleteRequest(_irp, 0);
 
-	KdPrint(("[+] closed driver device\n"));
 	return _irp->IoStatus.Status;
 }
 // }
@@ -44,16 +42,10 @@ NTSTATUS driver::device::control(DEVICE_OBJECT* _device, IRP* _irp)
 	
 	switch (stack->Parameters.DeviceIoControl.IoControlCode)
 	{
-		case CTL_ADD:
+		case CTL_DISABLE_EPROCESS_PROTECTION:
 		{
-			_STR_CTL_ADD_OPS* ops = (_STR_CTL_ADD_OPS*) stack->Parameters.DeviceIoControl.Type3InputBuffer;
-			_STR_CTL_ADD_ANS* ans = (_STR_CTL_ADD_ANS*) _irp->UserBuffer;
 
-			ans->ans = ops->a + ops->b;
-			_irp->UserBuffer = ans;
-
-			KdPrint(("[!] calculated %d + %d = %d\n", 
-				ops->a, ops->b, ans->ans));
+			
 
 			break;
 		}
@@ -64,7 +56,5 @@ NTSTATUS driver::device::control(DEVICE_OBJECT* _device, IRP* _irp)
 	}
 
 	IoCompleteRequest(_irp, 0);
-
-	KdPrint(("[+] controlled driver device\n"));
 	return STATUS_SUCCESS;
 }

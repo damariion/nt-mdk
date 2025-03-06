@@ -110,14 +110,14 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core.h" />
-    <ClInclude Include="driver.h" />
-    <ClInclude Include="link.h" />
+    <ClInclude Include="include\core.h" />
+    <ClInclude Include="include\driver.h" />
+    <ClInclude Include="include\link.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="device.cpp" />
-    <ClCompile Include="driver.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\device.cpp" />
+    <ClCompile Include="src\driver.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

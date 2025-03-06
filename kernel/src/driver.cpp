@@ -1,4 +1,4 @@
-#include "driver.h"
+#include "../include/driver.h"
 
 // initial declaration
 DRIVER_OBJECT* driver::self = nullptr;
@@ -40,7 +40,6 @@ NTSTATUS driver::load(DRIVER_OBJECT* _driver, UNICODE_STRING* _registry)
 		return ret;
 	}
 
-	KdPrint(("[+] loaded driver\n"));
 	return STATUS_SUCCESS;
 }
 
@@ -53,6 +52,5 @@ VOID driver::unload(DRIVER_OBJECT* _driver)
 	KdPrint(("[!] deleting device\n"));
 	IoDeleteDevice(_driver->DeviceObject);
 
-	KdPrint(("[+] unloaded driver\n"));
 	return;
 }
