@@ -46,8 +46,14 @@ NTSTATUS driver::device::control(DEVICE_OBJECT* _device, IRP* _irp)
 	{
 		case CTL_ADD:
 		{
-			auto nums = (pNUMS)stack->Parameters.DeviceIoControl.Type3InputBuffer;
-			ADD(nums); _irp->UserBuffer = nums;
+			_STR_CTL_ADD_OPS* ops = (_STR_CTL_ADD_OPS*) stack->Parameters.DeviceIoControl.Type3InputBuffer;
+			_STR_CTL_ADD_ANS* ans = (_STR_CTL_ADD_ANS*) _irp->UserBuffer;
+
+			ans->ans = ops->a + ops->b;
+			_irp->UserBuffer = ans;
+
+			KdPrint(("[!] calculated %d + %d = %d\n", 
+				ops->a, ops->b, ans->ans));
 
 			break;
 		}

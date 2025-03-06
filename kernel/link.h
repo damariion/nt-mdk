@@ -2,17 +2,15 @@
 #include "core.h"
 
 #define DEVICE_CODE 0x8000
+#define DEVICE_FUNC 0x800
+
+#define CTL_ADD CTL_CODE(DEVICE_CODE, DEVICE_FUNC, METHOD_NEITHER, FILE_ANY_ACCESS)
 typedef struct
 {
 	int a;
 	int b;
-	int c;
-} NUMS, *pNUMS;
-
-#define CTL_ADD CTL_CODE(DEVICE_CODE, 0x800, METHOD_NEITHER, FILE_ANY_ACCESS)
-VOID ADD(pNUMS nums)
+} _STR_CTL_ADD_OPS;
+typedef struct
 {
-	nums->c = nums->a + nums->b;
-	KdPrint(("[!] calculated: %d + %d = %d", 
-		nums->a, nums->b, nums->c));
-}
+	int ans;
+} _STR_CTL_ADD_ANS;
