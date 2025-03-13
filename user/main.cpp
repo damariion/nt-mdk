@@ -17,7 +17,7 @@ int main()
 {
 
 	std::cout << "[!] creating file\n";
-	HANDLE driver = CreateFile(L"\\\\.\\Driver", GENERIC_WRITE, 
+	HANDLE driver = CreateFile(L"\\\\.\\", GENERIC_WRITE, 
 		FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, 0, nullptr);
 
 	if (driver == INVALID_HANDLE_VALUE)
